@@ -1,15 +1,35 @@
+winflag = False  # boolean flag to indicate a winning situation (will become True)
+
+
 # the function gets a tic tac toe board and checks for winning or tie
 def check_win(board):
-    # The function will take sequence of 3 cells from the board and will check them in the check_seq function
+    global winflag
+    check_rows(board)
+    if winflag:  # If a winner has been found the function will stop
+        return None
+    check_cols(board)
+    if winflag:  # If a winner has been found the function will stop
+        return None
+    check_diagonals(board)
+    if winflag:  # If a winner has been found the function will stop
+        return None
+    print("tie")  # In case that there is no winner
 
-    winflag = False  # winning flag
-    # check for winner in the rows
+
+# check for winner in the rows
+# The function will take sequence of 3 cells from the board and will check them in the check_seq function
+def check_rows(board):
+    global winflag
     for row in board:
         winflag = check_seq(row)
         if winflag:  # If a winner has been found the function will stop
             return None
 
-    # check for winner in the cols
+
+# check for winner in the cols
+# The function will take sequence of 3 cells from the board and will check them in the check_seq function
+def check_cols(board):
+    global winflag
     for i in range(len(board)):
         col = []  # In order to append a sequence of 3 cells
         for j in range(len(board)):
@@ -18,8 +38,12 @@ def check_win(board):
         if winflag:  # If a winner has been found the function will stop
             return None
 
-    # check for winner in the main diagonal
-        col = []
+
+# check for winner in the main diagonal
+# The function will take sequence of 3 cells from the board and will check them in the check_seq function
+def check_diagonals(board):
+    global winflag
+    col = []
     for i in range(len(board)):
         col.append(board[i][i])
     winflag = check_seq(col)
@@ -33,7 +57,6 @@ def check_win(board):
     winflag = check_seq(col)
     if winflag:  # If a winner has been found the function will stop
         return None
-    print("tie")  # In case that there is no winner
 
 
 # The function check if there is a sequence of 3 (1,1,1 OR 2,2,2) and will
@@ -55,9 +78,9 @@ def check_seq(seq):
 
 # The main function for the game board
 def main():
-    board = [[1, 2, 2],
-             [2, 1, 1],
-             [2, 2, 2]]
+    board = [[1, 2, 1],
+             [2, 1, 2],
+             [1, 2, 1]]
     check_win(board)  # check for winner
 
 
